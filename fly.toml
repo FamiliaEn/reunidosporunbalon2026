@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for reunidosporunbalon2026 on 2026-05-13T04:08:03Z
+# fly.toml app configuration file generated for reunidosporunbalon2026-zmvavq on 2026-05-13T05:08:22Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'reunidosporunbalon2026'
+app = 'reunidosporunbalon2026-zmvavq'
 primary_region = 'ams'
 
 [build]
