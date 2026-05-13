@@ -8,6 +8,14 @@ DB_USER = usr01
 DB_PASS = V46ALGyDsbi_Qzmc
 DB_DATABASE = mundial2026
 
+// railway
+
+DB_HOST = junction.proxy.rlwy.net
+DB_USER = root
+DB_PASS = hbaRCCSLQTHAEzKfDgcNxBiUPsJoagHL
+DB_DATABASE = railway
+DB_PORT = 59719
+
 //BD lagarto
 
 DB_HOST = 69.6.201.153
@@ -23,14 +31,6 @@ DB_PASSWORD = WzVAwSvFUiUiMvGPDjIfVgZtoUUeRBEZ
 DB_NAME = railway
 DB_PORT = 37016
 
-
-// railway
-
-DB_HOST = junction.proxy.rlwy.net
-DB_USER = root
-DB_PASS = hbaRCCSLQTHAEzKfDgcNxBiUPsJoagHL
-DB_DATABASE = railway
-DB_PORT = 59719
 
 SMTP_HOST = smtp.gmail.com
 SMTP_PORT = 465
