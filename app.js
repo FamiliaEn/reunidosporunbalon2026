@@ -484,6 +484,9 @@ app.post('/auth', async (req, res)=> {
 					console.error('[auth] Error sending login notification email:', error);
 				});
 
+				console.log('isActive: 0' , req.session.loggedin);
+				console.log('isActive: ' + isActive);
+
 				if (isActive) {
 					
 					console.log('isActive: 1' , req.session.loggedin);
