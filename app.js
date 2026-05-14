@@ -381,7 +381,7 @@ app.post('/auth', async (req, res)=> {
 //    let passwordHash = await bcrypt.hash(pass, 8);
 
 
-	if (V_Log === 0) {
+	if (V_Log === 5) {
 		console.log('Accesa 0: ' + user);
 	}
 	if (V_Log === 5) {
@@ -428,7 +428,7 @@ app.post('/auth', async (req, res)=> {
 				const fin = Date.now();
 
 				if (V_Log === 0) {
-					console.log(participant.Alias, 'Tiempo:', fin);
+					console.log(participant.Alias, 'Tiempo:', new Date(fin).toUTCString());
 				}
 
 				if (pass != participant.Pass) {
