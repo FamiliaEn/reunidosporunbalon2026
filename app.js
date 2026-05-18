@@ -272,7 +272,7 @@ app.post('/register', async (req, res)=>{
 
 //10 - Metodo para la autenticacion
 app.post('/registra_save1', async (req, res)=> {
-	const Alias = req.body.Alias;
+	const Alias = (req.body.Alias || '').toString().trim();
 	const pass = req.body.pass;    
 
     const Id_participante = req.body.Id_participante;
@@ -287,6 +287,9 @@ app.post('/registra_save1', async (req, res)=> {
 	}
 
 	if (Alias && pass) {
+		if (Alias.length > 10) {
+			return renderAccessAlert(res, "Usuario inválido", "debe tener máximo 10 caracteres", 'warning');
+		}
 		connection.query('SELECT * FROM participantes WHERE alias = ?', [Alias], async (error, results, fields)=> {
 
 			if( results.length == 0  ) {  
@@ -814,6 +817,7 @@ app.get('/', (req, res)=> {
 app.get('/famL', (req, res)=> {
 
 	globalFolder = 1;
+
 	if (V_Log === 5) {
 		console.log(globalFolder);
 	}
