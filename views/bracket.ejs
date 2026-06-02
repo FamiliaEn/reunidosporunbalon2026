@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🏆 FIFA World Cup 2026 – Bracket Oficial</title>
+<meta name="description" content="Bracket oficial eliminatorio del FIFA World Cup 2026. Sigue el fixture completo desde la Ronda de 32 hasta la Gran Final en Nueva York el 19 de Julio 2026." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --bg:         #08112A;
+  --royal:      #1034A6;
+  --dark:       #071650;
+  --deeper:     #050F3A;
+  --box:        #0C1E6B;
+  --box2:       #091858;
+  --border:     rgba(74,140,255,0.32);
+  --border-gld: rgba(255,215,0,0.55);
+  --acc:        #4A8CFF;
+  --gold:       #FFD700;
+  --txt:        #FFFFFF;
+  --muted:      rgba(200,220,255,0.6);
+  --r:          9px;
+  --mw:         168px;
+  --mh:         62px;
+}
+
+/* ═══════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 90% 55% at 50% -5%, rgba(16,52,180,0.5), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 15% 90%, rgba(10,30,120,0.25), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 85% 90%, rgba(10,30,120,0.25), transparent 55%);
+  color: var(--txt);
+  font-family: 'Outfit', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════ */
+.site-header {
+  text-align: center;
+  padding: 40px 20px 28px;
+  position: relative;
+}
+
+.bracket-nav {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  background: #212529;
+  z-index: 12;
+}
+
+.bracket-nav-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 12px;
+}
+
+.bracket-nav-link,
+.bracket-nav-dropbtn {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 8px;
+  color: rgba(255,255,255,0.86);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+.bracket-nav-link:hover,
+.bracket-nav-dropbtn:hover,
+.bracket-nav-link.active {
+  color: #fff;
+}
+
+.bracket-nav-dropdown {
+  position: relative;
+  height: 36px;
+}
+
+.bracket-nav-dropbtn::after {
+  content: "";
+  display: inline-block;
+  margin-left: 6px;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.bracket-nav-menu {
+  display: none;
+  position: absolute;
+  top: 36px;
+  left: 0;
+  min-width: 160px;
+  padding: 8px 0;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+  text-align: left;
+  z-index: 20;
+}
+
+.bracket-nav-dropdown:hover .bracket-nav-menu,
+.bracket-nav-dropdown:focus-within .bracket-nav-menu {
+  display: block;
+}
+
+.bracket-nav-item {
+  display: block;
+  padding: 4px 16px;
+  color: #212529;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.bracket-nav-item:hover {
+  color: #1e2125;
+  background: #e9ecef;
+}
+
+.bracket-nav-spacer {
+  flex: 1;
+}
+
+.hdr-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(74,140,255,0.1);
+  border: 1px solid rgba(74,140,255,0.35);
+  border-radius: 100px;
+  padding: 5px 20px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: 16px;
+}
+
+.hdr-title {
+  font-size: clamp(26px, 4.5vw, 54px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  background: linear-gradient(140deg, #fff 0%, #BDD4FF 45%, var(--acc) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hdr-sub {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+}
+
+.hdr-divider {
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--acc), transparent);
+  margin: 18px auto 0;
+  border-radius: 2px;
+}
+
+.bracket-toggle-btn {
+  margin: 18px auto 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background .18s, border-color .18s, transform .12s;
+}
+
+.bracket-toggle-btn:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(74,140,255,0.35);
+}
+
+#cp .bracket-toggle-btn {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  z-index: 6;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION TITLE
+═══════════════════════════════════════════ */
+.sec-title {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: 22px;
+  position: relative;
+}
+.sec-title::before,
+.sec-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  width: 100px;
+  background: linear-gradient(90deg, transparent, var(--acc));
+}
+.sec-title::before { right: calc(50% + 90px); transform: scaleX(-1); }
+.sec-title::after  { left: calc(50% + 90px); }
+
+/* ═══════════════════════════════════════════
+   BRACKET SECTION
+═══════════════════════════════════════════ */
+.bracket-section { padding: 8px 0 32px; }
+
+.scroll-wrap {
+  overflow-x: auto;
+  padding: 0 16px 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-wrap::-webkit-scrollbar { height: 5px; }
+.scroll-wrap::-webkit-scrollbar-track { background: transparent; }
+.scroll-wrap::-webkit-scrollbar-thumb { background: var(--royal); border-radius: 3px; }
+
+/* Round label row */
+.round-labels {
+  display: flex;
+  align-items: center;
+  min-width: 1300px;
+  margin-bottom: 6px;
+}
+
+.rl {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.rl.r32 { width: var(--mw); }
+.rl.gap { width: 38px; }
+.rl.r16 { width: var(--mw); }
+.rl.qf  { width: var(--mw); }
+.rl.ctr { flex: 1; color: var(--gold); font-size: 10px; min-width: 200px; }
+
+/* Bracket canvas */
+#bc {
+  display: flex;
+  align-items: stretch;
+  min-width: 1300px;
+  min-height: 900px;
+  position: relative;
+}
+
+/* Overlay SVG for all connectors */
+#bc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+/* Side panels */
+#lp, #rp {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* Center panel */
+#cp {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0 12px;
+  min-width: 200px;
+  z-index: 1;
+  position: relative;
+}
+
+/* Round columns */
+.rc {
+  width: var(--mw);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
+}
+
+/* Gap strips between rounds */
+.rg {
+  width: 38px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════
+   MATCH BOX
+═══════════════════════════════════════════ */
+.mb {
+  background: linear-gradient(160deg, var(--box), var(--box2));
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: visible;
+  position: relative;
+  transition: border-color .18s, box-shadow .18s, transform .12s;
+  cursor: default;
+  backdrop-filter: blur(6px);
+  flex-shrink: 0;
+}
+
+.mb:hover {
+  border-color: rgba(74,140,255,0.7);
+  box-shadow: 0 0 18px rgba(74,140,255,0.2), 0 4px 14px rgba(0,0,0,0.4);
+  transform: translateY(-1px);
+  z-index: 10;
+}
+
+.mb.final {
+  border-color: var(--border-gld);
+  box-shadow: 0 0 28px rgba(255,215,0,0.18), 0 6px 24px rgba(0,0,0,0.5);
+  background: linear-gradient(160deg, #12266E, #0A185A);
+}
+
+.mb.final:hover {
+  box-shadow: 0 0 40px rgba(255,215,0,0.3), 0 8px 32px rgba(0,0,0,0.5);
+  border-color: rgba(255,215,0,0.8);
+}
+
+/* Team rows */
+.mt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  min-height: 28px;
+  transition: background .12s;
+}
+
+.mt:first-child { border-bottom: 1px solid rgba(74,140,255,0.12); }
+.mt:hover { background: rgba(74,140,255,0.07); }
+
+.tf {
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 28px;
+  min-width: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.tf img {
+  display: block;
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.tn { font-size: 11px; font-weight: 700; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ts { font-size: 8px; font-weight: 600; color: var(--muted); flex-shrink: 0; white-space: nowrap; }
+.mt:not(.tbd) .ts,
+.mt.scored .ts {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.mt.tbd .tn { color: var(--muted); font-style: italic; font-weight: 400; }
+.mt.tbd .tf { opacity: 0.35; }
+
+/* Date stripe */
+.md {
+  font-size: 9px;
+  font-weight: 800;
+  color: rgba(220,232,255,0.78);
+  text-align: right;
+  padding: 2px 8px 3px;
+  letter-spacing: .5px;
+}
+
+/* ═══════════════════════════════════════════
+   CENTER COLUMN COMPONENTS
+═══════════════════════════════════════════ */
+.trophy-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.trophy-glow {
+  position: absolute;
+  width: 170px; height: 170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,215,0,0.22) 0%, transparent 68%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  animation: tpulse 3.2s ease-in-out infinite;
+}
+
+@keyframes tpulse {
+  0%,100% { opacity:.65; transform: translate(-50%,-50%) scale(1);   }
+  50%      { opacity:1;   transform: translate(-50%,-50%) scale(1.18); }
+}
+
+.trophy-icon {
+  font-size: 76px;
+  line-height: 1;
+  filter: drop-shadow(0 0 18px rgba(255,215,0,.8)) drop-shadow(0 4px 8px rgba(0,0,0,.6));
+  animation: tfloat 4s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes tfloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+.trophy-lbl {
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(255,215,0,.5);
+}
+
+/* Semi wrappers */
+.sf-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.sf-lbl {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.final-wrap .sf-lbl {
+  font-size: 9px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Final wrapper */
+.final-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.final-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(255,215,0,0.13), rgba(255,215,0,0.04));
+  border: 1px solid rgba(255,215,0,0.42);
+  border-radius: 100px;
+  padding: 4px 15px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--gold);
+}
+
+/* Champion */
+.champ-wrap {
+  width: 100%;
+  margin-top: 12px;
+  text-align: center;
+  min-height: 38px;
+}
+
+.champ-name {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--gold) 0%, #fff5a0 50%, var(--gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 200% center; }
+}
+
+.champ-sub {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  opacity: .6;
+}
+
+/* ═══════════════════════════════════════════
+   GROUPS
+═══════════════════════════════════════════ */
+.groups-section {
+  padding: 40px 20px 60px;
+  border-top: 1px solid rgba(74,140,255,0.13);
+}
+
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 9px;
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+@media (max-width:1400px) { .groups-grid { grid-template-columns: repeat(6,1fr); } }
+@media (max-width:900px)  { .groups-grid { grid-template-columns: repeat(4,1fr); } }
+@media (max-width:600px)  { .groups-grid { grid-template-columns: repeat(3,1fr); } }
+
+.gc {
+  background: linear-gradient(160deg, rgba(12,30,107,0.85), rgba(9,24,88,0.85));
+  border: 1px solid rgba(74,140,255,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+  backdrop-filter: blur(6px);
+}
+
+.gc:hover {
+  border-color: rgba(74,140,255,0.5);
+  box-shadow: 0 4px 18px rgba(74,140,255,0.14);
+}
+
+.gh {
+  background: linear-gradient(135deg, #091C60, #050E38);
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(74,140,255,0.22);
+}
+
+.gl {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--acc);
+}
+
+.gt { display: flex; flex-direction: column; }
+
+.gtr {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 9px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background .13s;
+}
+.gtr:last-child { border-bottom: none; }
+.gtr:hover { background: rgba(74,140,255,0.07); }
+
+.gf {
+  font-size: 15px;
+  flex-shrink: 0;
+  width: 28px;
+  min-width: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.gf img {
+  display: block;
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.gn { font-size: 9.5px; font-weight: 700; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.site-footer {
+  text-align: center;
+  padding: 18px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  border-top: 1px solid rgba(74,140,255,0.1);
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--royal); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--acc); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" role="banner">
+  <nav class="bracket-nav" aria-label="Menu principal">
+    <div class="bracket-nav-inner">
+      <a class="bracket-nav-link active" href="/">Inicio</a>
+      <div class="bracket-nav-dropdown">
+        <button class="bracket-nav-dropbtn" type="button">Mundial_2026</button>
+        <div class="bracket-nav-menu">
+          <a class="bracket-nav-item" href="/estadios">Estadios</a>
+          <a class="bracket-nav-item" href="/paises">Paises</a>
+          <a class="bracket-nav-item" href="/grupos">Grupos</a>
+          <a class="bracket-nav-item" href="/bracket">Bracket</a>
+        </div>
+      </div>
+      <div class="bracket-nav-spacer"></div>
+      <a class="bracket-nav-link" href="/salir">Salir</a>
+    </div>
+  </nav>
+</header>
+
+<!-- BRACKET -->
+<section class="bracket-section" aria-label="Bracket de eliminación directa">
+  <div class="scroll-wrap">
+    <!-- Round Labels -->
+    <div class="round-labels">
+      <div class="rl r32">DIECISEISAVOS</div>
+      <div class="rl gap"></div>
+      <div class="rl r16">OCTAVOS</div>
+      <div class="rl gap"></div>
+      <div class="rl qf">CUARTOS</div>
+      <div class="rl ctr">SEMIFINALES &amp; FINAL</div>
+      <div class="rl qf">CUARTOS</div>
+      <div class="rl gap"></div>
+      <div class="rl r16">OCTAVOS</div>
+      <div class="rl gap"></div>
+      <div class="rl r32">DIECISEISAVOS</div>
+    </div>
+
+    <!-- Bracket Canvas -->
+    <div id="bc">
+      <!-- SVG overlay for connectors -->
+      <svg id="bc-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+      <!-- LEFT panel -->
+      <div id="lp">
+        <div class="rc" id="L-R32"></div>
+        <div class="rg" id="g-L-R32-R16"></div>
+        <div class="rc" id="L-R16"></div>
+        <div class="rg" id="g-L-R16-QF"></div>
+        <div class="rc" id="L-QF"></div>
+        <div class="rg" id="g-L-QF-SF"></div>
+      </div>
+
+      <!-- CENTER panel -->
+      <div id="cp">
+        <button id="bracket-toggle-btn" class="bracket-toggle-btn" type="button">Calcular bracket</button>
+
+        <div class="trophy-wrap">
+          <div class="trophy-glow"></div>
+          <div class="trophy-icon" role="img" aria-label="Trofeo FIFA World Cup">🏆</div>
+          <div class="trophy-lbl">MUNDIAL MEX CAN USA 2026</div>
+        </div>
+
+        <div class="sf-wrap">
+          <div class="sf-lbl">Semifinal</div>
+          <div id="SF-L" style="width:100%"></div>
+        </div>
+
+        <div class="final-wrap">
+          <div class="final-badge">🏟️ &nbsp;104 · NYNJ · 19-jul</div>
+          <div class="sf-lbl">GRAN FINAL</div>
+          <div id="FINAL-BOX" style="width:100%"></div>
+        </div>
+
+        <div class="sf-wrap">
+          <div class="sf-lbl">Semifinal</div>
+          <div id="SF-R" style="width:100%"></div>
+        </div>
+
+        <div class="champ-wrap" id="champ-wrap"></div>
+      </div>
+
+      <!-- RIGHT panel -->
+      <div id="rp">
+        <div class="rg" id="g-R-QF-SF"></div>
+        <div class="rc" id="R-QF"></div>
+        <div class="rg" id="g-R-QF-R16"></div>
+        <div class="rc" id="R-R16"></div>
+        <div class="rg" id="g-R-R16-R32"></div>
+        <div class="rc" id="R-R32"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROUPS -->
+<section class="groups-section" aria-label="Fase de grupos FIFA World Cup 2026">
+  <p class="sec-title">GROUPS</p>
+  <div class="groups-grid" id="groups-grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+    <div class="hdr-divider"></div>
+    <div class="hdr-badge">⚽ REUNIDOS POR UN BALON 2026</div>
+    <div class="hdr-divider"></div>
+    <p class="sec-title"> </p>
+    USA · CANADA · MÉXICO &nbsp;·&nbsp; JUN–JUL 2026 &nbsp;·&nbsp; 48 EQUIPOS · 12 GRUPOS
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   ████  D A T A  ████
+   Objeto central de datos. Edita aquí para actualizar todo el bracket.
+   Formato equipo: { code, name, flag }
+   Formato match:  { id, seedA, seedB, date, teamA?, teamB? }
+═══════════════════════════════════════════════════════════════════ */
+const DATA = {
+
+  /* ── GRUPOS A–L ── */
+  groups: {
+    A: [
+      { code:"USA", name:"Estados Unidos", flag:"🇺🇸" },
+      { code:"MEX", name:"México",         flag:"🇲🇽" },
+      { code:"CAN", name:"Canadá",         flag:"🇨🇦" },
+      { code:"SRB", name:"Serbia",         flag:"🇷🇸" },
+    ],
+    B: [
+      { code:"FRA", name:"Francia",        flag:"🇫🇷" },
+      { code:"ARG", name:"Argentina",      flag:"🇦🇷" },
+      { code:"MAR", name:"Marruecos",      flag:"🇲🇦" },
+      { code:"AUS", name:"Australia",      flag:"🇦🇺" },
+    ],
+    C: [
+      { code:"BRA", name:"Brasil",         flag:"🇧🇷" },
+      { code:"ESP", name:"España",         flag:"🇪🇸" },
+      { code:"NGA", name:"Nigeria",        flag:"🇳🇬" },
+      { code:"ECU", name:"Ecuador",        flag:"🇪🇨" },
+    ],
+    D: [
+      { code:"ENG", name:"Inglaterra",     flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+      { code:"POR", name:"Portugal",       flag:"🇵🇹" },
+      { code:"SEN", name:"Senegal",        flag:"🇸🇳" },
+      { code:"IRN", name:"Irán",           flag:"🇮🇷" },
+    ],
+    E: [
+      { code:"GER", name:"Alemania",       flag:"🇩🇪" },
+      { code:"NED", name:"Países Bajos",   flag:"🇳🇱" },
+      { code:"SAU", name:"Arabia Saudita", flag:"🇸🇦" },
+      { code:"CHI", name:"Chile",          flag:"🇨🇱" },
+    ],
+    F: [
+      { code:"ITA", name:"Italia",         flag:"🇮🇹" },
+      { code:"COL", name:"Colombia",       flag:"🇨🇴" },
+      { code:"GHA", name:"Ghana",          flag:"🇬🇭" },
+      { code:"UKR", name:"Ucrania",        flag:"🇺🇦" },
+    ],
+    G: [
+      { code:"URU", name:"Uruguay",        flag:"🇺🇾" },
+      { code:"BEL", name:"Bélgica",        flag:"🇧🇪" },
+      { code:"CMR", name:"Camerún",        flag:"🇨🇲" },
+      { code:"TUN", name:"Túnez",          flag:"🇹🇳" },
+    ],
+    H: [
+      { code:"CRO", name:"Croacia",        flag:"🇭🇷" },
+      { code:"JPN", name:"Japón",          flag:"🇯🇵" },
+      { code:"KSA", name:"Arabia S.",      flag:"🇸🇦" },
+      { code:"PAN", name:"Panamá",         flag:"🇵🇦" },
+    ],
+    I: [
+      { code:"DEN", name:"Dinamarca",      flag:"🇩🇰" },
+      { code:"POL", name:"Polonia",        flag:"🇵🇱" },
+      { code:"TUR", name:"Turquía",        flag:"🇹🇷" },
+      { code:"CRC", name:"Costa Rica",     flag:"🇨🇷" },
+    ],
+    J: [
+      { code:"KOR", name:"Corea del Sur",  flag:"🇰🇷" },
+      { code:"MOR", name:"Marruecos",      flag:"🇲🇦" },
+      { code:"HUN", name:"Hungría",        flag:"🇭🇺" },
+      { code:"HON", name:"Honduras",       flag:"🇭🇳" },
+    ],
+    K: [
+      { code:"SUI", name:"Suiza",          flag:"🇨🇭" },
+      { code:"AUT", name:"Austria",        flag:"🇦🇹" },
+      { code:"ALG", name:"Argelia",        flag:"🇩🇿" },
+      { code:"NZL", name:"Nueva Zelanda",  flag:"🇳🇿" },
+    ],
+    L: [
+      { code:"PER", name:"Perú",           flag:"🇵🇪" },
+      { code:"GRE", name:"Grecia",         flag:"🇬🇷" },
+      { code:"EGY", name:"Egipto",         flag:"🇪🇬" },
+      { code:"PAR", name:"Paraguay",       flag:"🇵🇾" },
+    ],
+  },
+
+  /* ── RONDA DE 32  (Izquierda: L32-1…8  |  Derecha: R32-1…8) ── */
+  R32_L: [
+    { id:"L32-74", seedA:"1E",       seedB:"3ABCDF",  date:"74 · HOU · 29-jun" },
+    { id:"L32-77", seedA:"1I",       seedB:"3CDFGH",  date:"77 · DAL · 30-jun" },
+    { id:"L32-73", seedA:"2A",       seedB:"2B",      date:"73 · LA · 28-jun" },
+    { id:"L32-75", seedA:"1F",       seedB:"2C",      date:"75 · BOS · 29-jun" },
+    { id:"L32-83", seedA:"2K",       seedB:"2L",      date:"83 · LA · 02-jul" },
+    { id:"L32-84", seedA:"1H",       seedB:"2J",      date:"84 · TOR · 02-jul" },
+    { id:"L32-81", seedA:"1D",       seedB:"3BEFIJ",  date:"81 · SEA · 01-jul" },
+    { id:"L32-82", seedA:"1G",       seedB:"3AEHIJ",  date:"82 · SF · 01-jul" },
+  ],
+  R32_R: [
+    { id:"R32-76", seedA:"1C",       seedB:"2F",      date:"76 · MTY · 29-jun" },
+    { id:"R32-78", seedA:"2E",       seedB:"2I",      date:"78 · NYNJ · 30-jun" },
+    { id:"R32-79", seedA:"1A",       seedB:"3CEFHI",  date:"79 · CDMX · 30-jun" },
+    { id:"R32-80", seedA:"1L",       seedB:"3EHIJK",  date:"80 · ATL · 01-jul" },
+    { id:"R32-86", seedA:"1J",       seedB:"2H",      date:"86 · DAL · 03-jul" },
+    { id:"R32-88", seedA:"2D",       seedB:"2G",      date:"88 · KC · 03-jul" },
+    { id:"R32-85", seedA:"1B",       seedB:"3EFGIJ",  date:"85 · VAN · 02-jul" },
+    { id:"R32-87", seedA:"1K",       seedB:"3DEIJL",  date:"87 · MIA · 03-jul" },
+  ],
+
+  /* ── OCTAVOS DE FINAL ── */
+  R16_L: [
+    { id:"L16-89", seedA:"W74", seedB:"W77", date:"89 · HOU · 04-jul" },
+    { id:"L16-90", seedA:"W73", seedB:"W75", date:"90 · PHL · 04-jul" },
+    { id:"L16-93", seedA:"W83", seedB:"W84", date:"93 · DAL · 06-jul" },
+    { id:"L16-94", seedA:"W81", seedB:"W82", date:"94 · SEA · 06-jul" },
+  ],
+  R16_R: [
+    { id:"R16-91", seedA:"W76", seedB:"W78", date:"91 · NYNJ · 05-jul" },
+    { id:"R16-92", seedA:"W79", seedB:"W80", date:"92 · CDMX · 05-jul" },
+    { id:"R16-95", seedA:"W86", seedB:"W88", date:"95 · ATL · 07-jul" },
+    { id:"R16-96", seedA:"W85", seedB:"W87", date:"96 · VAN · 07-jul" },
+  ],
+
+  /* ── CUARTOS DE FINAL ── */
+  QF_L: [
+    { id:"QF-97", seedA:"W89", seedB:"W90", date:"97 · BOS · 09-jul" },
+    { id:"QF-98", seedA:"W93", seedB:"W94", date:"98 · LA · 10-jul" },
+  ],
+  QF_R: [
+    { id:"QF-99",  seedA:"W91", seedB:"W92", date:"99 · MIA · 11-jul" },
+    { id:"QF-100", seedA:"W95", seedB:"W96", date:"100 · KC · 11-jul" },
+  ],
+
+  /* ── SEMIFINALES ── */
+  SF_L: { id:"SF-101", seedA:"W97",  seedB:"W98",  date:"101 · DAL · 14-jul" },
+  SF_R: { id:"SF-102", seedA:"W99",  seedB:"W100", date:"102 · ATL · 15-jul" },
+
+  /* ── GRAN FINAL ── */
+  FINAL: { id:"F-104", seedA:"W101", seedB:"W102", date:"104 · NYNJ · 19-jul" },
+  THIRD_PLACE: { id:"3P-103", seedA:"RU101", seedB:"RU102", date:"103 · MIA · 18-jul" },
+};
+
+/* ═══════════════════════════════════════════════════════════════════
+   ████  RENDER ENGINE  ████
+═══════════════════════════════════════════════════════════════════ */
+
+/** Build a .mb match-box element */
+function mkBox(match, opts = {}) {
+  const { isFinal = false } = opts;
+  const box = document.createElement('div');
+  box.className = 'mb' + (isFinal ? ' final' : '');
+  box.id = 'box-' + match.id;
+
+  const hasA = match.teamA;
+  const hasB = match.teamB;
+
+  const flagA = hasA ? match.teamA.flag : '🏳';
+  const nameA = hasA ? match.teamA.name : (match.seedA || 'TBD');
+  const seedA = match.scoreA ?? match.seedA ?? '';
+  const hasScoreA = match.scoreA !== undefined && match.scoreA !== null;
+
+  const flagB = hasB ? match.teamB.flag : '🏳';
+  const nameB = hasB ? match.teamB.name : (match.seedB || 'TBD');
+  const seedB = match.scoreB ?? match.seedB ?? '';
+  const hasScoreB = match.scoreB !== undefined && match.scoreB !== null;
+
+  box.innerHTML =
+    `<div class="mt${hasA ? '' : ' tbd'}${hasScoreA ? ' scored' : ''}">` +
+      `<span class="tf">${hasA ? flagA : '🏳'}</span>` +
+      `<span class="tn">${nameA}</span>` +
+      `<span class="ts">${seedA}</span>` +
+    `</div>` +
+    `<div class="mt${hasB ? '' : ' tbd'}${hasScoreB ? ' scored' : ''}">` +
+      `<span class="tf">${hasB ? flagB : '🏳'}</span>` +
+      `<span class="tn">${nameB}</span>` +
+      `<span class="ts">${seedB}</span>` +
+    `</div>` +
+    (match.date ? `<div class="md">${match.date}</div>` : '');
+
+  return box;
+}
+
+/** Fill a round column (.rc) with match boxes */
+function fillCol(colId, matches, opts = {}) {
+  const col = document.getElementById(colId);
+  if (!col) return;
+  matches.forEach(m => col.appendChild(mkBox(m, opts)));
+}
+
+/** Get the center Y of an element relative to the bracket canvas */
+function midY(el) {
+  const canv = document.getElementById('bc');
+  const cr = canv.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return er.top + er.height / 2 - cr.top;
+}
+
+/** Get the center X of an element relative to the bracket canvas */
+function midX(el) {
+  const canv = document.getElementById('bc');
+  const cr = canv.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return er.left + er.width / 2 - cr.left;
+}
+
+/** Right edge X of an element relative to canvas */
+function rightX(el) {
+  const canv = document.getElementById('bc');
+  const cr = canv.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return er.right - cr.left;
+}
+
+/** Left edge X of an element relative to canvas */
+function leftX(el) {
+  const canv = document.getElementById('bc');
+  const cr = canv.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return er.left - cr.left;
+}
+
+/** Draw SVG connector lines
+ *  @param {SVGElement} svg
+ *  @param {number[]} pts flat array [x0,y0, x1,y1, ...]
+ */
+function line(svg, ...pts) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const pl = document.createElementNS(ns, 'polyline');
+  const pStr = [];
+  for (let i = 0; i < pts.length; i += 2) pStr.push(`${pts[i]},${pts[i+1]}`);
+  pl.setAttribute('points', pStr.join(' '));
+  pl.setAttribute('fill', 'none');
+  pl.setAttribute('stroke', 'rgba(74,140,255,0.38)');
+  pl.setAttribute('stroke-width', '1.6');
+  pl.setAttribute('stroke-linecap', 'round');
+  pl.setAttribute('stroke-linejoin', 'round');
+  svg.appendChild(pl);
+}
+
+/**
+ * Connect pairs of boxes from "from" column to single boxes in "to" column.
+ * Side: 'L' = from-col is to the LEFT of to-col
+ *        'R' = from-col is to the RIGHT of to-col
+ */
+function connectRounds(svg, fromColId, toColId, side) {
+  const fromBoxes = [...document.getElementById(fromColId).querySelectorAll('.mb')];
+  const toBoxes   = [...document.getElementById(toColId).querySelectorAll('.mb')];
+
+  toBoxes.forEach((toBox, i) => {
+    const fA = fromBoxes[i * 2];
+    const fB = fromBoxes[i * 2 + 1];
+    if (!fA || !fB) return;
+
+    const yA   = midY(fA);
+    const yB   = midY(fB);
+    const yTo  = midY(toBox);
+    const yMid = (yA + yB) / 2;
+
+    if (side === 'L') {
+      // from-col left → to-col right: exit right, go to mid, enter left
+      const xFrom = rightX(fA);   // both fA/fB share same right X
+      const xTo   = leftX(toBox);
+      const xMid  = (xFrom + xTo) / 2;
+
+      line(svg, xFrom, yA,   xMid, yA,   xMid, yMid);
+      line(svg, xFrom, yB,   xMid, yB,   xMid, yMid);
+      line(svg, xMid, yMid,  xTo,  yMid, xTo,  yTo);
+    } else {
+      // from-col right → to-col left: exit left, go to mid, enter right
+      const xFrom = leftX(fA);
+      const xTo   = rightX(toBox);
+      const xMid  = (xFrom + xTo) / 2;
+
+      line(svg, xFrom, yA,   xMid, yA,   xMid, yMid);
+      line(svg, xFrom, yB,   xMid, yB,   xMid, yMid);
+      line(svg, xMid, yMid,  xTo,  yMid, xTo,  yTo);
+    }
+  });
+}
+
+/**
+ * Connect QF column (2 boxes) to a single SF box in center panel.
+ * For left side: QF right edge → SF left edge.
+ * For right side: QF left edge → SF right edge.
+ */
+function connectQFtoSF(svg, qfColId, sfBoxId, side) {
+  const qfBoxes = [...document.getElementById(qfColId).querySelectorAll('.mb')];
+  const sfBox   = document.getElementById(sfBoxId).querySelector('.mb');
+  if (!sfBox) return;
+
+  const yTo = midY(sfBox);
+
+  qfBoxes.forEach(qb => {
+    const yFrom = midY(qb);
+    if (side === 'L') {
+      const xFrom = rightX(qb);
+      const xTo   = leftX(sfBox);
+      const xMid  = (xFrom + xTo) / 2;
+      line(svg, xFrom, yFrom, xMid, yFrom, xMid, yTo, xTo, yTo);
+    } else {
+      const xFrom = leftX(qb);
+      const xTo   = rightX(sfBox);
+      const xMid  = (xFrom + xTo) / 2;
+      line(svg, xFrom, yFrom, xMid, yFrom, xMid, yTo, xTo, yTo);
+    }
+  });
+}
+
+/**
+ * Connect SF boxes to the FINAL box.
+ */
+function connectSFtoFinal(svg) {
+  const sfL   = document.getElementById('SF-L').querySelector('.mb');
+  const sfR   = document.getElementById('SF-R').querySelector('.mb');
+  const final = document.getElementById('FINAL-BOX').querySelector('.mb');
+  if (!sfL || !sfR || !final) return;
+
+  // SF-L → Final (left side, SF is above+left of final)
+  [{ sf: sfL, side: 'L' }, { sf: sfR, side: 'R' }].forEach(({ sf, side }) => {
+    const yFrom = midY(sf);
+    const yTo   = midY(final);
+    if (side === 'L') {
+      const xFrom = rightX(sf);
+      const xTo   = leftX(final);
+      const xMid  = (xFrom + xTo) / 2;
+      line(svg, xFrom, yFrom, xMid, yFrom, xMid, yTo, xTo, yTo);
+    } else {
+      const xFrom = leftX(sf);
+      const xTo   = rightX(final);
+      const xMid  = (xFrom + xTo) / 2;
+      line(svg, xFrom, yFrom, xMid, yFrom, xMid, yTo, xTo, yTo);
+    }
+  });
+}
+
+/** Draw all connectors */
+function drawAll() {
+  const svg = document.getElementById('bc-svg');
+  svg.innerHTML = '';
+
+  // Resize svg viewBox to canvas
+  const canv = document.getElementById('bc');
+  const w = canv.offsetWidth, h = canv.offsetHeight;
+  svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+  // Left: R32 → R16 → QF
+  connectRounds(svg, 'L-R32', 'L-R16', 'L');
+  connectRounds(svg, 'L-R16', 'L-QF',  'L');
+
+  // Right: R32 → R16 → QF  (mirrored)
+  connectRounds(svg, 'R-R32', 'R-R16', 'R');
+  connectRounds(svg, 'R-R16', 'R-QF',  'R');
+
+  // QF → SF (center)
+  connectQFtoSF(svg, 'L-QF', 'SF-L', 'L');
+  connectQFtoSF(svg, 'R-QF', 'SF-R', 'R');
+
+  // SF → Final
+  connectSFtoFinal(svg);
+}
+
+/* ── GROUPS ── */
+async function fetchBracketGroups() {
+  const response = await fetch('/bracket_data');
+  if (!response.ok) {
+    throw new Error(`Error cargando grupos: ${response.status}`);
+  }
+  return response.json();
+}
+
+async function fetchBracketScores(ids) {
+  if (!ids.length) return [];
+
+  const response = await fetch(`/bracket_scores?ids=${ids.join(',')}`);
+  if (!response.ok) {
+    throw new Error(`Error cargando marcadores: ${response.status}`);
+  }
+  return response.json();
+}
+
+function normalizeBracketGroups(rows) {
+  return rows.reduce((groups, row) => {
+    const groupId = row.Grupo || row.grupo || 'Sin grupo';
+    if (!groups[groupId]) {
+      groups[groupId] = [];
+    }
+    groups[groupId].push({
+      code: row.Clave || row.clave || '',
+      name: row.Nombre || row.nombre || ''
+    });
+    return groups;
+  }, {});
+}
+
+function renderGroups(groupsData) {
+  const grid = document.getElementById('groups-grid');
+  grid.innerHTML = '';
+  Object.entries(groupsData).forEach(([letter, teams]) => {
+    const card = document.createElement('div');
+    card.className = 'gc';
+    card.setAttribute('aria-label', `Grupo ${letter}`);
+    card.innerHTML =
+      `<div class="gh"><div class="gl">GRUPO ${letter}</div></div>` +
+      `<div class="gt">${teams.map(t =>
+        `<div class="gtr">` +
+          `<img class="gf" src="/resources/Ipais/${t.code}.png" alt="${t.name}" width="24" height="16" ` +
+            `onerror="this.onerror=null;this.src='https://placehold.co/24x16?text=${t.code}'"/>` +
+          `<span class="gn">${t.name}</span>` +
+        `</div>`
+      ).join('')}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+async function loadBracketGroups() {
+  try {
+    const rows = await fetchBracketGroups();
+    const groupsData = normalizeBracketGroups(rows);
+    renderGroups(groupsData);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function resetBracketData() {
+  getBracketMatches().forEach(match => {
+    delete match.scoreA;
+    delete match.scoreB;
+  });
+
+  getR32Matches().forEach(match => {
+    delete match.teamA;
+    delete match.teamB;
+  });
+}
+
+function clearBracketContainers() {
+  ['L-R32','L-R16','L-QF','R-R32','R-R16','R-QF','SF-L','SF-R','FINAL-BOX','champ-wrap'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  });
+}
+
+function renderBracketMatches() {
+  clearBracketContainers();
+
+  fillCol('L-R32', DATA.R32_L);
+  fillCol('L-R16', DATA.R16_L);
+  fillCol('L-QF',  DATA.QF_L);
+  fillCol('R-R32', DATA.R32_R);
+  fillCol('R-R16', DATA.R16_R);
+  fillCol('R-QF',  DATA.QF_R);
+
+  document.getElementById('SF-L').appendChild(mkBox(DATA.SF_L));
+  document.getElementById('SF-R').appendChild(mkBox(DATA.SF_R));
+  document.getElementById('FINAL-BOX').appendChild(mkBox(DATA.FINAL, { isFinal: true }));
+
+  const thirdPlaceWrap = document.getElementById('champ-wrap');
+  thirdPlaceWrap.innerHTML = '<div class="sf-lbl">TERCER LUGAR</div>';
+  thirdPlaceWrap.appendChild(mkBox(DATA.THIRD_PLACE));
+}
+
+async function calculateBracket() {
+  const button = document.getElementById('bracket-toggle-btn');
+  if (button) button.disabled = true;
+
+  try {
+    const scoreIds = getBracketMatches().map(getMatchDbId).filter(id => id !== null);
+    const [rows, scoreRows] = await Promise.all([
+      fetchBracketGroups(),
+      fetchBracketScores(scoreIds)
+    ]);
+    const groupsData = normalizeBracketGroups(rows);
+    attachR32Teams(groupsData);
+    attachBracketScores(scoreRows);
+    renderBracketMatches();
+    requestAnimationFrame(drawAll);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    if (button) button.disabled = false;
+  }
+}
+
+function getR32Matches() {
+  return [...DATA.R32_L, ...DATA.R32_R];
+}
+
+function getBracketMatches() {
+  return [
+    ...DATA.R32_L,
+    ...DATA.R32_R,
+    ...DATA.R16_L,
+    ...DATA.R16_R,
+    ...DATA.QF_L,
+    ...DATA.QF_R,
+    DATA.SF_L,
+    DATA.SF_R,
+    DATA.FINAL,
+    DATA.THIRD_PLACE
+  ];
+}
+
+function getMatchDbId(match) {
+  const matchId = String(match.id || '').match(/-(\d+)$/);
+  return matchId ? Number(matchId[1]) : null;
+}
+
+function attachBracketScores(scoreRows) {
+  const scoresById = new Map(
+    scoreRows.map(row => [Number(row.Id), row])
+  );
+
+  getBracketMatches().forEach(match => {
+    const dbId = getMatchDbId(match);
+    const score = scoresById.get(dbId);
+    if (!score) return;
+
+    match.scoreA = score.ML;
+    match.scoreB = score.MV;
+  });
+}
+
+function attachR32Teams(groupsData) {
+  const seedMatch = /^([1-3])([A-L])$/i;
+  const thirdMatch = /^3([A-L]{3,})$/i;
+
+  Object.values(groupsData).forEach(teams => {
+    teams.forEach(team => {
+      const code = String(team.code || '').trim().toUpperCase();
+      const originalName = team.name || code;
+      team.code = code;
+      team.flag = code
+        ? `<img src="/resources/Ipais/${code}.png" alt="${originalName}" width="24" height="16" onerror="this.onerror=null;this.src='https://placehold.co/24x16?text=${code}'"/>`
+        : team.flag;
+      team.name = code || originalName;
+    });
+  });
+
+  const placeholder = seed => ({ code: seed, name: seed, flag: '🏳' });
+
+  const getTeam = seed => {
+    const directMatch = seedMatch.exec(seed);
+    if (directMatch) {
+      const position = Number(directMatch[1]) - 1;
+      const groupId = directMatch[2].toUpperCase();
+      const team = groupsData[groupId]?.[position];
+      return team ? { ...team, flag: team.flag || team.code || '🏳' } : placeholder(seed);
+    }
+
+    const thirdMatchResult = thirdMatch.exec(seed);
+    if (thirdMatchResult) {
+      const groups = thirdMatchResult[1].split('').join('/');
+      return { code: seed, name: `3° ${groups}`, flag: '🏳' };
+    }
+
+    if (seed.startsWith('W ') || seed.startsWith('w ')) {
+      return { code: seed, name: seed, flag: '🏳' };
+    }
+
+    return placeholder(seed);
+  };
+
+  [DATA.R32_L, DATA.R32_R].forEach(round => {
+    round.forEach(match => {
+      match.teamA = getTeam(match.seedA);
+      match.teamB = getTeam(match.seedB);
+    });
+  });
+}
+
+async function loadBracketTeams() {
+  try {
+    const rows = await fetchBracketGroups();
+    const groupsData = normalizeBracketGroups(rows);
+    attachR32Teams(groupsData);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function setupBracketToggle() {
+  const button = document.getElementById('bracket-toggle-btn');
+  if (!button) return;
+
+  let bracketCalculated = false;
+
+  button.addEventListener('click', async () => {
+    if (bracketCalculated) {
+      resetBracketData();
+      renderBracketMatches();
+      requestAnimationFrame(drawAll);
+      button.textContent = 'Calcular bracket';
+      bracketCalculated = false;
+    } else {
+      await calculateBracket();
+      button.textContent = 'Regresar al origen';
+      bracketCalculated = true;
+    }
+  });
+}
+
+/* ── INIT ── */
+async function init() {
+  loadBracketGroups();
+  setupBracketToggle();
+
+  renderBracketMatches();
+
+  // Equalize round column heights to canvas height for space-around to work
+  requestAnimationFrame(() => {
+    const canv = document.getElementById('bc');
+    const h = canv.offsetHeight;
+    ['L-R32','L-R16','L-QF','R-R32','R-R16','R-QF'].forEach(id => {
+      const c = document.getElementById(id);
+      if (c) c.style.height = h + 'px';
+    });
+
+    // Draw connectors after second rAF (ensure layout complete)
+    requestAnimationFrame(() => {
+      setTimeout(drawAll, 50);
+    });
+  });
+}
+
+// Re-draw on resize
+let rt;
+window.addEventListener('resize', () => {
+  clearTimeout(rt);
+  rt = setTimeout(() => {
+    const canv = document.getElementById('bc');
+    const h = canv.offsetHeight;
+    ['L-R32','L-R16','L-QF','R-R32','R-R16','R-QF'].forEach(id => {
+      const c = document.getElementById(id);
+      if (c) c.style.height = h + 'px';
+    });
+    drawAll();
+  }, 160);
+});
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

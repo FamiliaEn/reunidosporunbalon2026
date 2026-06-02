@@ -200,10 +200,70 @@ router.get('/estadios_data', (req, res)=>{
     })
 })
 
-//RUTA QUE NOS LLEVA AL FORMULARIO PARA DAR DE ALTA UN NUEVO REGISTRO
-//router.get('/create', (req,res)=>{
-//    res.render('create');
-//})
+
+router.get('/estadios', (req,res)=>{
+    res.render('estadios');
+})
+
+
+//ruta para enviar los datos en formato json
+router.get('/grupos_data', (req, res)=>{     
+    conexion.query('SELECT P.Grupo AS Grupo, G.Clave, P.Nombre, JJ, JG, JE, JP, GF, GC, DG, PTS  \
+      FROM grupos G, paises P  \
+      WHERE G.Clave=P.Clave  \
+      ORDER BY P.Grupo, PTS DESC, Extra DESC',(error, results)=>{
+        if(error){
+            throw error;
+        } else {
+            res.json(results);
+        }   
+    })
+})
+
+router.get('/grupos', (req,res)=>{
+    res.render('grupos');
+})
+
+
+router.get('/bracket', (req,res)=>{
+    res.render('bracket');
+})
+
+//ruta para enviar los datos en formato json
+router.get('/bracket_data', (req, res)=>{     
+    conexion.query('SELECT P.Grupo AS Grupo, G.Clave, P.Nombre  \
+      FROM grupos G, paises P  \
+      WHERE G.Clave=P.Clave  \
+      ORDER BY P.Grupo, PTS DESC, P.puntos, Extra DESC',(error, results)=>{
+        if(error){
+            throw error;
+        } else {
+            res.json(results);
+        }   
+    })
+})
+
+//ruta para enviar marcadores activos de partidos del bracket
+router.get('/bracket_scores', (req, res)=>{
+    const ids = String(req.query.ids || '')
+        .split(',')
+        .map(id => Number(id.trim()))
+        .filter(Number.isInteger);
+
+    if (ids.length === 0) {
+        res.json([]);
+        return;
+    }
+
+    conexion.query('SELECT Id, ML, MV FROM partidos WHERE Id IN (?) AND Estatus=1', [ids], (error, results)=>{
+        if(error){
+            throw error;
+        } else {
+            res.json(results);
+        }
+    })
+})
+
 
 //RUTA QUE NOS LLEVA AL FORMULARIO PARA DAR DE ALTA UN NUEVO REGISTRO
 router.get('/createp', (req,res)=>{

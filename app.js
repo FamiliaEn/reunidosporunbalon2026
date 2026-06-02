@@ -823,13 +823,13 @@ app.get('/famL', (req, res)=> {
 	}
 
 	if (req.session.loggedin) {
-		res.render('calendario',{
+		res.render('ranking',{
 			login: true,
 			name: req.session.name,
 			Folder: 1			
 		});		
 	} else {
-		res.render('calendario',{
+		res.render('ranking',{
 			login:false,
 			name:'Debe iniciar sesión',	
 			Folder: 1		
@@ -864,7 +864,7 @@ app.get('/garcia', (req, res)=> {
 	res.end();
 });
 
-app.get('/CSA', (req, res)=> {
+app.get('/CS1', (req, res)=> {
 
 	globalFolder = 2;
 
@@ -1060,6 +1060,31 @@ app.get('/campeon', (req, res)=> {
 		res.end();
 	});
 	
+//grupos
+app.get('/grupos', (req, res)=> {
+
+	if (V_Log === 5) {
+		console.log('Debug Q ',req.session.loggedin);
+		console.log('Debug Q ',req.session.Alias);
+		console.log('Debug Q ',req.session.Id_participante);
+	}
+	
+		if (req.session.loggedin) {
+			res.render('grupos',{
+				login: true,
+				Alias: req.session.Alias,
+				Nivel: req.session.Nivel,
+				Id_participante: req.session.Id_participante,
+				Folder: globalFolder,
+			});
+		} else {
+			res.render('grupos',{
+				login:false,
+				Alias:'Debe iniciar sesión',
+			});
+		}
+		res.end();
+	});
 
 //RUTA para puntos 
 app.get('/puntosC', (req,res)=>{
@@ -1151,6 +1176,9 @@ app.get('/Correo', (req,res)=>{
 	}
 	res.end();
 });
+
+
+
 
 app.use('/', require('./router'));
 
