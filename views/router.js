@@ -93,7 +93,7 @@ router.get('/quinielas_data', (req, res)=>{
     conexion.query('SELECT Q.Id, concat_ws(P.Descripcion, P.Id,  P.Id)  Id_P ,R.Alias,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV   \
     FROM partidos as P, paises as L, paises as V, quiniela as Q, participantes R, folder F    \
     WHERE P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido \
-    and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and F.folder = ? \
+    and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and P.Estatus=1 and F.folder = ? \
     union all \
     SELECT Q.Id,concat_ws(P.Descripcion, P.Id,  P.Id)  Id_P ,R.Alias,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV \
     FROM partidos as P, paises as V, campeon as Q, participantes R, folder F \
@@ -293,7 +293,7 @@ router.get('/participantes_datF1', (req, res)=>{
        
     console.log('Folder 4',global.globalFolder);
  
-    pool.query('SELECT L.Lugar Lugar, P.Alias Alias, P.Puntos Puntos FROM lugar L, participantes P where L.Id_participante = P.Id_participante and L.Id_Folder=?',[global.globalFolder] ,(error, results)=>{
+    pool.query('SELECT L.Lugar Lugar, P.Alias Alias, P.Puntos Puntos FROM lugar L, participantes P where L.Id_participante = P.Id_participante and L.Id_Folder=? order by P.Fecha',[global.globalFolder] ,(error, results)=>{
          if(error){
             console.log(error);
             console.error(err);

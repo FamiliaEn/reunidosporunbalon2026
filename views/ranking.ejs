@@ -11,8 +11,29 @@
     <link rel="stylesheet" href="resources/css/style2.css">
     <link  rel="stylesheet" href="resources/css/ventanas.css" >
     <link  rel="stylesheet" href="resources/css/estilos.css" >
+    <link rel="icon" href="resources/images/favicon.ico">
+    <style>
+      .ranking-title {
+        align-items: center;
+        gap: 12px 20px;
+        margin-top: 0;
+        padding: 0 8px;
+      }
 
-    <title>Mundial_2026 </title>
+      .ranking-title .cat {
+        height: 48px;
+        width: 48px;
+        padding: 0;
+      }
+
+      .ranking-title h1 {
+        font-size: 1.6rem;
+        line-height: 1.2;
+        margin: 0;
+      }
+    </style>
+
+    <title>Mundial 2026 </title>
 </head>
 <body>
 
@@ -103,8 +124,19 @@
     </div>
   </nav>
 
-    <br>
+      <div class="flex-container-tit ranking-title">
+        <div class="flex-titulo">   
+          <div class="cat">
+            <img src="resources/images/posisiones.png" />               
+          </div>
+        </div>
 
+        <div class="flex-titulo">   
+            <h1>  POSICIONES </h1>
+        </div>
+    </div>
+    <br>
+	
     <div class="Lpzcontainer">
 
       <div class="Ranking">
@@ -176,7 +208,7 @@
         {'data': 'Puntos'}
     ],
     responsive: true,
-    pageLength : 20,
+    pageLength : 24,
     buttons: 
 			{
 				extend:    'excelHtml5',
@@ -186,7 +218,7 @@
 			},
       dom: 'ftilBp', 
     language: {
-            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json',
         },
     lengthMenu: [[5, 13, 20, -1], [5, 13, 20, 'Todos']]     
   }); 
