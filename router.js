@@ -89,15 +89,15 @@ router.get('/quinielas_data', (req, res)=>{
 //    console.log('Debug quiniela Id ',req.session.Id_participante);
 //    console.log('Debug quiniela A ',req.session.Alias);
 
-    conexion.query('SELECT Q.Id, concat_ws(P.Descripcion, P.Id,  P.Id)  Id_P ,R.Alias,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV   \
+    conexion.query(`SELECT Q.Id, CONCAT(LPAD(P.Id, 2, '0'), '-', P.Descripcion)  Id_P ,R.Alias,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV   \
     FROM partidos as P, paises as L, paises as V, quiniela as Q, participantes R, folder F    \
     WHERE P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido \
     and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and F.folder = ? \
     union all \
-    SELECT Q.Id,concat_ws(P.Descripcion, P.Id,  P.Id)  Id_P ,R.Alias,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV \
+    SELECT Q.Id,concat_ws(P.Descripcion, LPAD(P.Id, 2, '0'), LPAD(P.Id, 2, '0'))  Id_P ,R.Alias,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV \
     FROM partidos as P, paises as V, campeon as Q, participantes R, folder F \
     WHERE P.Id > 48 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and F.folder = ? \
-    order by 1,2',[global.globalFolder,global.globalFolder],(error, results)=>{
+    order by 1,2`,[global.globalFolder,global.globalFolder],(error, results)=>{
         if(error){
             throw error;
         } else {                                                   
@@ -279,7 +279,7 @@ router.get('/createq', (req,res)=>{
 //RUTA PARA EDITAR UN REGISTRO SELECCIONADO
 router.get('/partidos_edit/:Id', (req,res)=>{    
     const Id = req.params.Id;
-    conexion.query('SELECT P.Id,L.clave ClaveL,P.Local,P.ML,P.MV,P.Visitante,V.Clave ClaveV,date_format(Fecha, "%d-%m-%Y") as Fecha,Horario,Estadio,Estatus FROM partidos as P, paises as L, paises as V WHERE P.Visitante = V.nombre and P.Local = L.nombre and P.Id=?',[Id] , (error, results) => {
+    conexion.query('SELECT P.Id,L.clave ClaveL,P.Local,P.ML,P.MV,P.Visitante,V.Clave ClaveV,L.Ranking LRanking,V.Ranking VRanking,date_format(Fecha, "%d-%m-%Y") as Fecha,Horario,Estadio,Estatus FROM partidos as P, paises as L, paises as V WHERE P.Visitante = V.nombre and P.Local = L.nombre and P.Id=?',[Id] , (error, results) => {
         if (error) {
             throw error;
         }else{            

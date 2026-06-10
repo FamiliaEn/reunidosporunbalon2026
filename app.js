@@ -864,29 +864,6 @@ app.get('/garcia', (req, res)=> {
 	res.end();
 });
 
-app.get('/CS1', (req, res)=> {
-
-	globalFolder = 2;
-
-	if (V_Log === 5) {
-		console.log(globalFolder);
-	}
-
-	if (req.session.loggedin) {
-		res.render('calendario',{
-			login: true,
-			name: req.session.name,
-			Folder: 2			
-		});		
-	} else {
-		res.render('calendario',{
-			login:false,
-			name:'Debe iniciar sesión',	
-			Folder: 2		
-		});				 
-	}
-	res.end();
-});
 
 app.get('/ranking', (req, res)=> {
 
@@ -957,6 +934,8 @@ app.get('/compara', (req, res)=> {
 //partidos
 app.get('/partidos', (req, res)=> {
 
+	globalFolder = 1;
+	
 	if (V_Log === 5) {
 		console.log('Debud ',req.session.loggedin);
 		console.log('Debud ',req.session.Alias);
