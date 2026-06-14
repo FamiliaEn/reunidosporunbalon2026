@@ -1139,16 +1139,16 @@ app.get('/participantes2', (req,res)=>{
 	res.end();
 });
 
-app.get('/Correo', (req,res)=>{
+app.get('/correo', (req,res)=>{
 	if (req.session.loggedin) {
-		res.render('Correo',{
+		res.render('correo',{
 			login: true,
 			Alias: req.session.Alias,
 			Nivel: req.session.Nivel,
 			Id_participante: req.session.Id_participante
 		});
 	} else {
-		res.render('Correo',{
+		res.render('correo',{
 			login:false,
 			Alias:'Debe iniciar sesión'
 		});

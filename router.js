@@ -92,11 +92,38 @@ router.get('/quinielas_data', (req, res)=>{
     conexion.query(`SELECT Q.Id, CONCAT(LPAD(P.Id, 2, '0'), '-', P.Descripcion)  Id_P ,R.Alias,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV   \
     FROM partidos as P, paises as L, paises as V, quiniela as Q, participantes R, folder F    \
     WHERE P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido \
-    and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and P.Estatus=1 and F.folder = ? \
+    and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and P.Estatus=2 and F.folder = ? \
     union all \
     SELECT Q.Id,concat_ws(P.Descripcion, LPAD(P.Id, 2, '0'), LPAD(P.Id, 2, '0'))  Id_P ,R.Alias,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV \
     FROM partidos as P, paises as V, campeon as Q, participantes R, folder F \
     WHERE P.Id > 48 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and F.folder = ? \
+    order by 1,2`,[global.globalFolder,global.globalFolder],(error, results)=>{
+        if(error){
+            throw error;
+        } else {                                                   
+            datap = JSON.stringify(results);
+            res.send(datap);          
+        }   
+    })
+})
+
+//ruta para enviar los datos en formato json
+router.get('/quinielas_dataA', (req, res)=>{     
+
+    const Id_p = req.session.Id_participante;
+//    console.log('Folder 1 ',global.globalFolder);
+//	  console.log('Debug quiniela L ',req.session.loggedin);
+//    console.log('Debug quiniela Id ',req.session.Id_participante);
+//    console.log('Debug quiniela A ',req.session.Alias);
+
+    conexion.query(`SELECT Q.Id, CONCAT(LPAD(P.Id, 2, '0'), '-', P.Descripcion)  Id_P ,R.Alias,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV   \
+    FROM partidos as P, paises as L, paises as V, quiniela as Q, participantes R   \
+    WHERE P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido \
+    and Q.Id_participante=R.Id_participante \
+    union all \
+    SELECT Q.Id,concat_ws(P.Descripcion, LPAD(P.Id, 2, '0'), LPAD(P.Id, 2, '0'))  Id_P ,R.Alias,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV \
+    FROM partidos as P, paises as V, campeon as Q, participantes R\
+    WHERE P.Id > 48 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante \
     order by 1,2`,[global.globalFolder,global.globalFolder],(error, results)=>{
         if(error){
             throw error;
@@ -431,6 +458,11 @@ router.get('/participante_del/:id', (req, res) => {
 //RUTA para Quinielas
 router.get('/quinielas', (req,res)=>{
     res.render('quinielas');
+})
+
+//RUTA para Quinielas Administrador
+router.get('/quinielasA', (req,res)=>{
+    res.render('quinielasA');
 })
 
 //RUTA para calendario
