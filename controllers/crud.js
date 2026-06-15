@@ -236,17 +236,48 @@ exports.updatep = (req, res)=>{
 //ACTUALIZAR partido inicia
 exports.updatepatidoIni = (req, res)=>{
     const Id = req.body.Id;
+    let completedQueries = 0;
+    let hasError = false;
+    let responseSent = false;
 
     console.log(Id); 
     
     conexion.query('UPDATE partidos SET Estatus=2 WHERE Id = ?',[Id], (error, results)=>{
        if(error){
             console.log(error);
+            hasError = true;
         }else{           
-            console.log(results);   
-            res.redirect('/partidos');    
+            console.log(results);
         }
-});
+        completedQueries++;
+        if(completedQueries === 2 && !responseSent) {
+            responseSent = true;
+            if(!hasError) {
+                res.redirect('/partidos');
+            } else {
+                res.status(500).send('Error updating database');
+            }
+        }
+    });
+
+    conexion.query('UPDATE quiniela SET Estatus=2 WHERE Estatus=5 AND Id_partido = ?',[Id], (error, results)=>{
+       if(error){
+            console.log(error);
+            hasError = true;
+        }else{           
+            console.log(results);
+        }
+        completedQueries++;
+        if(completedQueries === 2 && !responseSent) {
+            responseSent = true;
+            if(!hasError) {
+                res.redirect('/partidos');
+            } else {
+                res.status(500).send('Error updating database');
+            }
+        }
+    });
+
 }
 
 
