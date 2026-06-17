@@ -931,11 +931,34 @@ app.get('/compara', (req, res)=> {
 	res.end();
 });
 
+//compara
+app.get('/comparaA', (req, res)=> {
+
+	if (V_Log === 5) {
+		console.log('Debud ',req.session.loggedin);
+		console.log('Debud ',req.session.Alias);
+	}
+
+	if (req.session.loggedin) {
+		res.render('comparaA',{
+			login: true,
+			Alias: req.session.Alias,
+			Folder: req.session.Folder,
+		
+		});		
+	} else {
+		res.render('comparaA',{
+			login:false,
+			Alias:'Debe iniciar sesión',			
+		});				
+	}
+	res.end();
+});
+
+
 //partidos
 app.get('/partidos', (req, res)=> {
 
-	globalFolder = 1;
-	
 	if (V_Log === 5) {
 		console.log('Debud ',req.session.loggedin);
 		console.log('Debud ',req.session.Alias);
@@ -956,6 +979,7 @@ app.get('/partidos', (req, res)=> {
 	}
 	res.end();
 });
+
 
 //quiniela 16
 app.get('/quiniela', (req, res)=> {
@@ -1093,6 +1117,12 @@ app.get('/puntosC', (req,res)=>{
 //RUTA para regresiva
 app.get('/participantes', (req,res)=>{
 
+	globalFolder = 1;
+
+	if (V_Log === 5) {
+		console.log(globalFolder);
+	}
+
 	if (V_Log === 5) {
 		console.log('Debug Q ',req.session.loggedin);
 		console.log('Debug Q ',req.session.Alias);
@@ -1117,6 +1147,12 @@ app.get('/participantes', (req,res)=>{
 
 app.get('/participantes2', (req,res)=>{
 
+	globalFolder = 2;
+
+	if (V_Log === 5) {
+		console.log(globalFolder);
+	}
+
 	if (V_Log === 5) {
 		console.log('Debug Q ',req.session.loggedin);
 		console.log('Debug Q ',req.session.Alias);
@@ -1140,6 +1176,13 @@ app.get('/participantes2', (req,res)=>{
 });
 
 app.get('/correo', (req,res)=>{
+
+	globalFolder = 1;
+
+	if (V_Log === 5) {
+		console.log(globalFolder);
+	}
+
 	if (req.session.loggedin) {
 		res.render('correo',{
 			login: true,

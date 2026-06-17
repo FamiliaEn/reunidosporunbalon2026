@@ -31,6 +31,64 @@
         line-height: 1.2;
         margin: 0;
       }
+
+      #participantes {
+        table-layout: fixed;
+        width: 100% !important;
+      }
+
+      #participantes th,
+      #participantes td {
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+
+      #participantes th:nth-child(1),
+      #participantes td:nth-child(1) {
+        width: 22% !important;
+      }
+
+      #participantes th:nth-child(2),
+      #participantes td:nth-child(2) {
+        width: 54% !important;
+      }
+
+      #participantes th:nth-child(3),
+      #participantes td:nth-child(3) {
+        width: 24% !important;
+      }
+
+      @media (max-width: 600px) {
+        .Lpzcontainer {
+          grid-template-columns: 1fr;
+          grid-template-areas:
+            "Resultados"
+            "Quiniela";
+        }
+
+        .Ranking,
+        .Ranking_img {
+          margin: 4px;
+          padding: 6px;
+        }
+
+        .Ranking_img {
+          text-align: center;
+        }
+
+        .Ranking_img h1 {
+          font-size: 1.25rem;
+        }
+
+        #participantes {
+          font-size: 0.78rem;
+        }
+
+        #participantes th,
+        #participantes td {
+          padding: 4px 3px;
+        }
+      }
     </style>
 
     <title>Mundial 2026 </title>
@@ -207,8 +265,8 @@
         {'data': 'Alias'},
         {'data': 'Puntos'}
     ],
-    responsive: true,
-    pageLength : 24,
+    responsive: false,
+    pageLength : 23,
     buttons: 
 			{
 				extend:    'excelHtml5',

@@ -70,7 +70,28 @@ router.get('/quiniela_data', (req, res)=>{
 //    console.log('Debug quiniela 2 ',req.session.Alias);
 
 
-    conexion.query('SELECT Q.Id,P.Id Id_P,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV,P.Fecha,P.Horario,P.Estadio,Q.Estatus Estatus FROM partidos as P, paises as L, paises as V, quiniela as Q WHERE P.Estatus = 0 and P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido and Q.Id_participante=? order by Id_P',[Id_p],(error, results)=>{
+    conexion.query('SELECT Q.Id,P.Id Id_P,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV,P.Fecha,P.Horario,P.Estadio,Q.Estatus Estatus FROM partidos as P, paises as L, paises as V, quiniela as Q WHERE P.Estatus = 1 and P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido and Q.Id_participante=? order by Id_P',[Id_p],(error, results)=>{
+        if(error){
+            throw error;
+        } else {                                                   
+            datap = JSON.stringify(results);
+            res.send(datap);          
+        }   
+    })
+})
+
+//ruta para enviar los datos en formato json
+router.get('/quiniela_dataA', (req, res)=>{     
+
+    const Id_p = req.session.Id_participante;
+
+
+//	console.log('Debug quiniela L ',req.session.loggedin);
+//    console.log('Debug quiniela Id ',req.session.Id_participante);
+//    console.log('Debug quiniela 2 ',req.session.Alias);
+
+
+    conexion.query('SELECT Q.Id,P.Id Id_P,Q.Id_participante,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV,P.Fecha,P.Horario,P.Estadio,Q.Estatus Estatus FROM partidos as P, paises as L, paises as V, quiniela as Q WHERE P.Estatus = 1 and P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido order by Id_P',[Id_p],(error, results)=>{
         if(error){
             throw error;
         } else {                                                   
@@ -90,13 +111,13 @@ router.get('/quinielas_data', (req, res)=>{
 //    console.log('Debug quiniela A ',req.session.Alias);
 
     conexion.query(`SELECT Q.Id, CONCAT(LPAD(P.Id, 2, '0'), '-', P.Descripcion)  Id_P ,R.Alias,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV   \
-    FROM partidos as P, paises as L, paises as V, quiniela as Q, participantes R, folder F    \
+    FROM partidos as P, paises as L, paises as V, quiniela as Q, participantes R    \
     WHERE P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido \
-    and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and P.Estatus=2 and F.folder = ? \
+    and Q.Id_participante=R.Id_participante and P.Estatus=2 \
     union all \
     SELECT Q.Id,concat_ws(P.Descripcion, LPAD(P.Id, 2, '0'), LPAD(P.Id, 2, '0'))  Id_P ,R.Alias,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV \
-    FROM partidos as P, paises as V, campeon as Q, participantes R, folder F \
-    WHERE P.Id > 48 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante and Q.Id_participante=F.Id_participante and F.folder = ? \
+    FROM partidos as P, paises as V, campeon as Q, participantes R \
+    WHERE P.Id > 48 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante \
     order by 1,2`,[global.globalFolder,global.globalFolder],(error, results)=>{
         if(error){
             throw error;
@@ -394,7 +415,7 @@ router.get('/participantes_datF1', (req, res)=>{
        
 //    console.log('Folder F1',global.globalFolder);
  
-    pool.query('SELECT L.Lugar Lugar, P.Alias Alias, P.Puntos Puntos FROM lugar L, participantes P where L.Id_participante = P.Id_participante and L.Id_Folder=?',[global.globalFolder] ,(error, results)=>{
+    pool.query('SELECT L.Lugar Lugar, P.Alias Alias, P.Puntos Puntos FROM lugar L, participantes P where L.Id_participante = P.Id_participante ',[global.globalFolder] ,(error, results)=>{
          if(error){
             console.log(error);
             console.error(err);
