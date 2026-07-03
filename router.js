@@ -47,7 +47,7 @@ router.get('/quiniela_data1', (req, res)=>{
 
     conexion.query('SELECT Q.Id,P.Id Id_P,L.clave ClaveL,P.Local,Q.ML,Q.MV,P.Visitante,V.Clave ClaveV,P.Fecha,P.Horario,P.Estadio,Q.Estatus Estatus FROM partidos as P, paises as L, paises as V, quiniela as Q WHERE P.Id > 0 and P.Visitante = V.nombre and P.Local = L.nombre and P.Id = Q.Id_partido and Q.Id_participante=? \
     union all \
-    SELECT Q.Id,P.Id Id_P,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV,P.Fecha,P.Horario,P.Estadio,Q.Estatus Estatus FROM partidos as P, paises as V, campeon as Q WHERE P.Id > 48 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=? \
+    SELECT Q.Id,P.Id Id_P,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV,P.Fecha,P.Horario,P.Estadio,Q.Estatus Estatus FROM partidos as P, paises as V, campeon as Q WHERE P.Id > 104 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=? \
     order by Id_P',[Id_p,Id_p],(error, results)=>{
         if(error){
             throw error;
@@ -117,7 +117,7 @@ router.get('/quinielas_data', (req, res)=>{
     union all \
     SELECT Q.Id,concat_ws(P.Descripcion, LPAD(P.Id, 2, '0'), LPAD(P.Id, 2, '0'))  Id_P ,R.Alias,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV \
     FROM partidos as P, paises as V, campeon as Q, participantes R \
-    WHERE P.Id > 48 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante \
+    WHERE P.Id > 104 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante \
     order by 1,2`,[global.globalFolder,global.globalFolder],(error, results)=>{
         if(error){
             throw error;
@@ -144,7 +144,7 @@ router.get('/quinielas_dataA', (req, res)=>{
     union all \
     SELECT Q.Id,concat_ws(P.Descripcion, LPAD(P.Id, 2, '0'), LPAD(P.Id, 2, '0'))  Id_P ,R.Alias,Q.clave ClaveL,P.Local,null,null,Q.equipo,V.Clave ClaveV \
     FROM partidos as P, paises as V, campeon as Q, participantes R\
-    WHERE P.Id > 48 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante \
+    WHERE P.Id > 104 and Q.equipo = V.nombre and P.Id = Q.Id_partido and Q.Id_participante=R.Id_participante \
     order by 1,2`,[global.globalFolder,global.globalFolder],(error, results)=>{
         if(error){
             throw error;
@@ -207,7 +207,7 @@ router.get('/calendario_data', (req, res)=>{
         WHERE P.Visitante = V.nombre and P.Local = L.nombre \
         union \
         SELECT P.Id,P.Local," "," ",P.Visitante,date_format(P.Fecha, "%d-%m-%Y") as Fecha,P.Horario,P.Estadio,P.Estatus FROM partidos as P \
-        WHERE P.Id > 72 order by 9, 1',(error, results)=>{
+        WHERE P.Id > 104 order by 9, 1',(error, results)=>{
         if(error){
             throw error;
         } else {                                                   
@@ -435,7 +435,7 @@ router.get('/participantes_datF1', (req, res)=>{
        
 //    console.log('Folder F1',global.globalFolder);
  
-    pool.query('SELECT L.Lugar Lugar, P.Alias Alias, P.Puntos Puntos FROM lugar L, participantes P where L.Id_participante = P.Id_participante ',[global.globalFolder] ,(error, results)=>{
+    pool.query('SELECT L.Lugar Lugar, P.Alias Alias, P.Puntos Puntos FROM lugar L, participantes P where L.Id_participante = P.Id_participante and P.Estatus = 1',[global.globalFolder] ,(error, results)=>{
          if(error){
             console.log(error);
             console.error(err);

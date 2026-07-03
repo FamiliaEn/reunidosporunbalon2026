@@ -1047,7 +1047,7 @@ app.get('/campeon', (req, res)=> {
 	}
 	
 		if (req.session.loggedin) {
-			res.render('resultados',{
+			res.render('campeon',{
 				login: true,
 				Alias: req.session.Alias,
 				Nivel: req.session.Nivel,
@@ -1055,7 +1055,7 @@ app.get('/campeon', (req, res)=> {
 				Folder: globalFolder,
 			});
 		} else {
-			res.render('resultados',{
+			res.render('campeon',{
 				login:false,
 				Alias:'Debe iniciar sesión',
 			});
