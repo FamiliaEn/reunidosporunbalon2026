@@ -1047,20 +1047,48 @@ app.get('/campeon', (req, res)=> {
 	}
 	
 		if (req.session.loggedin) {
-			res.render('campeon',{
-				login: true,
-				Alias: req.session.Alias,
-				Nivel: req.session.Nivel,
-				Id_participante: req.session.Id_participante,
-				Folder: globalFolder,
+			const sqlEquiposCuartos = `
+			SELECT Equipo FROM campeon where Id_partido=200
+				ORDER BY 1
+			`;
+
+			connection.query(sqlEquiposCuartos, (error, results)=> {
+				if (error) {
+					throw error;
+				}
+
+				connection.query('select Equipo from campeon WHERE Id >0 and Id_partido = 106 and Id_participante = ?', [req.session.Id_participante], (errorCampeon, resultsCampeon)=> {
+					if (errorCampeon) {
+						throw errorCampeon;
+					}
+
+					connection.query('select Equipo from campeon WHERE Id >0 and Id_partido = 105 and Id_participante = ?', [req.session.Id_participante], (errorSubCampeon, resultsSubCampeon)=> {
+						if (errorSubCampeon) {
+							throw errorSubCampeon;
+						}
+
+						res.render('campeon',{
+							login: true,
+							Alias: req.session.Alias,
+							Nivel: req.session.Nivel,
+							Id_participante: req.session.Id_participante,
+							Folder: globalFolder,
+							equiposCuartos: results,
+							campeonInfo: resultsCampeon[0],
+							subCampeonInfo: resultsSubCampeon[0],
+						});
+					});
+				});
 			});
 		} else {
 			res.render('campeon',{
 				login:false,
 				Alias:'Debe iniciar sesión',
+				equiposCuartos: [],
+				campeonInfo: null,
+				subCampeonInfo: null,
 			});
 		}
-		res.end();
 	});
 	
 //grupos

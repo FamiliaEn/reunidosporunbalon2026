@@ -279,7 +279,7 @@ router.get('/grupos_data', (req, res)=>{
     conexion.query('SELECT P.Grupo AS Grupo, G.Clave, P.Nombre, JJ, JG, JE, JP, GF, GC, DG, PTS  \
       FROM grupos G, paises P  \
       WHERE G.Clave=P.Clave  \
-      ORDER BY P.Grupo, PTS DESC, Extra DESC',(error, results)=>{
+      ORDER BY P.Grupo, PTS DESC, DG DESC, Extra DESC',(error, results)=>{
         if(error){
             throw error;
         } else {
@@ -302,7 +302,7 @@ router.get('/bracket_data', (req, res)=>{
     conexion.query('SELECT P.Grupo AS Grupo, G.Clave, P.Nombre  \
       FROM grupos G, paises P  \
       WHERE G.Clave=P.Clave  \
-      ORDER BY P.Grupo, PTS DESC, P.puntos, Extra DESC',(error, results)=>{
+      ORDER BY P.Grupo, PTS DESC, P.puntos, G.DG DESC, Extra DESC',(error, results)=>{
         if(error){
             throw error;
         } else {
@@ -324,6 +324,31 @@ router.get('/bracket_scores', (req, res)=>{
     }
 
     conexion.query('SELECT Id, ML, MV FROM partidos WHERE Id IN (?) AND Estatus=1', [ids], (error, results)=>{
+        if(error){
+            throw error;
+        } else {
+            res.json(results);
+        }
+    })
+})
+
+//ruta para enviar los datos de cada caja del bracket
+router.get('/bracket_matches', (req, res)=>{
+    const ids = String(req.query.ids || '')
+        .split(',')
+        .map(id => Number(id.trim()))
+        .filter(Number.isInteger);
+
+    if (ids.length === 0) {
+        res.json([]);
+        return;
+    }
+
+    conexion.query(`SELECT P.Id,L.clave ClaveL,P.Local,P.ML,P.MV,V.Clave ClaveV,P.Visitante,
+        date_format(P.Fecha, "%d-%m-%Y") as Fecha,P.Horario,P.Estadio
+        FROM partidos as P, paises as L, paises as V
+        WHERE P.Visitante = V.nombre and P.Local = L.nombre
+        and P.Id IN (?)`, [ids], (error, results)=>{
         if(error){
             throw error;
         } else {

@@ -9,6 +9,93 @@
     <link  rel="stylesheet" href="../resources/css/estilo.css" >
 
     <title>EDITA</title>
+    <style>
+      .campeon-grid {
+        max-width: 760px;
+        margin: 0 auto 24px;
+        row-gap: 18px;
+      }
+
+      .campeon-card {
+        height: 100%;
+        padding: 18px 16px;
+        border: 1px solid rgba(13, 110, 253, 0.22);
+        border-radius: 10px;
+        background: linear-gradient(180deg, rgba(13, 110, 253, 0.08), rgba(255, 255, 255, 0.92));
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+      }
+
+      .campeon-label {
+        margin-bottom: 8px;
+        color: #0d6efd;
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .campeon-current {
+        min-height: 34px;
+        margin-bottom: 14px;
+        color: #172033;
+        font-size: 1.15rem;
+        font-weight: 800;
+      }
+
+      .campeon-select-label {
+        display: block;
+        margin-bottom: 6px;
+        color: #5b6472;
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .campeon-select {
+        width: 100%;
+        min-height: 42px;
+        padding: 8px 36px 8px 12px;
+        border: 1px solid rgba(13, 110, 253, 0.35);
+        border-radius: 8px;
+        color: #172033;
+        font-weight: 700;
+        background-color: #fff;
+      }
+
+      .campeon-display {
+        min-width: 190px;
+        padding: 12px 14px;
+        border: 1px solid rgba(13, 110, 253, 0.24);
+        border-radius: 10px;
+        background: #fff;
+        color: #172033;
+        font-size: 1.05rem;
+        font-weight: 800;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      }
+
+      select[name="campeon"],
+      select[name="SubCampeon"] {
+        width: 100%;
+        min-width: 190px;
+        min-height: 42px;
+        padding: 8px 12px;
+        border: 1px solid rgba(13, 110, 253, 0.38);
+        border-radius: 8px;
+        background-color: #fff;
+        color: #172033;
+        font-size: 0.96rem;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.12);
+      }
+
+      select[name="campeon"]:focus,
+      select[name="SubCampeon"]:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.18);
+        outline: none;
+      }
+    </style>
 </head>
 <body>
 
@@ -47,125 +134,32 @@
                 </div>
               </div> 
 
-              <div class="row">
-                  <div class="col">
-                    <div class="mb-3">
-                      <div class="textinh2"> CAMPEÓN</div>                       
-                    </div>   
+              <div class="row campeon-grid">
+                <div class="col-12 col-md-6">
+                  <div class="campeon-card">
+                    <div class="campeon-label">Campeón actual</div>
+                    <div class="campeon-current"><%= campeonInfo && campeonInfo.Equipo ? campeonInfo.Equipo : 'Sin seleccionar' %></div>
+                    <label class="campeon-select-label" for="campeon">Elegir campeón</label>
+                    <select id="campeon" name="campeon" class="campeon-select">
+                      <% equiposCuartos.forEach((equipo) => { %>
+                        <option value="<%= equipo.Equipo %>" <%= campeonInfo && campeonInfo.Equipo === equipo.Equipo ? 'selected' : '' %>><%= equipo.Equipo %></option>
+                      <% }) %>
+                    </select>
                   </div>
-                  <div class="col">
-                    <div class="textinh2"> SUB CAMPEÓN</div>
-                  </div>
-              </div> <!--row -->
-        
-              <div class="row">
-                  <div class="col">
-                       <div class="textin"> 77 </div>  
-                  </div>
-                  <div class="col">
-                    <div class="textin">    55 </div>  
-               </div>
-               <div class="col">
-                <div class="textin">  88 </div>  
-           </div>
-              </div> <!--row -->
-        
+                </div>
 
-              <div class="row">
- 
-                  <div class="col">
-                    <div class="textin">66 </div>
+                <div class="col-12 col-md-6">
+                  <div class="campeon-card">
+                    <div class="campeon-label">Sub campeón actual</div>
+                    <div class="campeon-current"><%= subCampeonInfo && subCampeonInfo.Equipo ? subCampeonInfo.Equipo : 'Sin seleccionar' %></div>
+                    <label class="campeon-select-label" for="SubCampeon">Elegir sub campeón</label>
+                    <select id="SubCampeon" name="SubCampeon" class="campeon-select">
+                      <% equiposCuartos.forEach((equipo) => { %>
+                        <option value="<%= equipo.Equipo %>" <%= subCampeonInfo && subCampeonInfo.Equipo === equipo.Equipo ? 'selected' : '' %>><%= equipo.Equipo %></option>
+                      <% }) %>
+                    </select>
                   </div>
-                  <div class="col">
-                    <select name="campeon">
-                      <option value="Sudáfrica">Sudáfrica</option>
-                      <option value="Brasil">Brasil</option>
-                      <option value="Alemania">Alemania</option>
-                      <option value="Países Bajos">Países Bajos</option>
-                      <option value="Costa de Marfil">Costa de Marfil</option>
-                      <option value="Francia">Francia</option>
-                      <option value="México">México</option>
-                      <option value="Inglaterra">Inglaterra</option>
-                      <option value="Bélgica">Bélgica</option>
-                      <option value="EE. UU.">EE. UU.</option>
-                      <option value="España">España</option>
-                      <option value="Portugal">Portugal</option>
-                      <option value="Suiza">Suiza</option>
-                      <option value="Australia">Australia</option>
-                      <option value="Argentina">Argentina</option>
-                      <option value="Colombia">Colombia</option>
-                      <option value="Canadá">Canadá</option>
-                      <option value="Japón">Japón</option>
-                      <option value="Paraguay">Paraguay</option>
-                      <option value="Marruecos">Marruecos</option>
-                      <option value="Noruega">Noruega</option>
-                      <option value="Suecia">Suecia</option>
-                      <option value="Ecuador">Ecuador</option>
-                      <option value="RD Congo">RD Congo</option>
-                      <option value="Senegal">Senegal</option>
-                      <option value="Bosnia Herzegovina">Bosnia Herzegovina</option>
-                      <option value="Austria">Austria</option>
-                      <option value="Croacia">Croacia</option>
-                      <option value="Argelia">Argelia</option>
-                      <option value="Egipto">Egipto</option>
-                      <option value="Islas Cabo V">Islas Cabo V</option>
-                    </select> 
-
-                  </div>
-                  <div class="col">
-                       <div class="textin">1 </div>  
-                  </div>
-                  <div class="col">                  
-                    <div class="textin">2 </div>
-                  </div>
-
-                  <div class="col">
-                    <div class="mb-3">        
-                      <select name="SubCampeon">
-                        <option value="Sudáfrica">Sudáfrica</option>
-                        <option value="Brasil">Brasil</option>
-                        <option value="Alemania">Alemania</option>
-                        <option value="Países Bajos">Países Bajos</option>
-                        <option value="Costa de Marfil">Costa de Marfil</option>
-                        <option value="Francia">Francia</option>
-                        <option value="México">México</option>
-                        <option value="Inglaterra">Inglaterra</option>
-                        <option value="Bélgica">Bélgica</option>
-                        <option value="EE. UU.">EE. UU.</option>
-                        <option value="España">España</option>
-                        <option value="Portugal">Portugal</option>
-                        <option value="Suiza">Suiza</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Argentina">Argentina</option>
-                        <option value="Colombia">Colombia</option>
-                        <option value="Canadá">Canadá</option>
-                        <option value="Japón">Japón</option>
-                        <option value="Paraguay">Paraguay</option>
-                        <option value="Marruecos">Marruecos</option>
-                        <option value="Noruega">Noruega</option>
-                        <option value="Suecia">Suecia</option>
-                        <option value="Ecuador">Ecuador</option>
-                        <option value="RD Congo">RD Congo</option>
-                        <option value="Senegal">Senegal</option>
-                        <option value="Bosnia Herzegovina">Bosnia Herzegovina</option>
-                        <option value="Austria">Austria</option>
-                        <option value="Croacia">Croacia</option>
-                        <option value="Argelia">Argelia</option>
-                        <option value="Egipto">Egipto</option>
-                        <option value="Islas Cabo V">Islas Cabo V</option>
-                      </select>
-
-                      <div class="textin">1 </div>           
-                    
-                    </div>
-                  </div>
-                  <div class="col">
-                    
-                  </div>
-                  <div class="col">
-                    <div class="textin">10 </div>
-                  </div>
-
+                </div>
               </div> <!--row -->
 
 

@@ -882,24 +882,24 @@ const DATA = {
 
   /* ── RONDA DE 32  (Izquierda: L32-1…8  |  Derecha: R32-1…8) ── */
   R32_L: [
-    { id:"L32-74", seedA:"1E",       seedB:"3ABCDF",  date:"74 · HOU · 29-jun" },
-    { id:"L32-77", seedA:"1I",       seedB:"3CDFGH",  date:"77 · DAL · 30-jun" },
+    { id:"L32-75", seedA:"1E",       seedB:"3D",  date:"75 · HOU · 29-jun" },
+    { id:"L32-78", seedA:"1I",       seedB:"3F",  date:"78 · DAL · 30-jun" },
     { id:"L32-73", seedA:"2A",       seedB:"2B",      date:"73 · LA · 28-jun" },
-    { id:"L32-75", seedA:"1F",       seedB:"2C",      date:"75 · BOS · 29-jun" },
-    { id:"L32-83", seedA:"2K",       seedB:"2L",      date:"83 · LA · 02-jul" },
-    { id:"L32-84", seedA:"1H",       seedB:"2J",      date:"84 · TOR · 02-jul" },
-    { id:"L32-81", seedA:"1D",       seedB:"3BEFIJ",  date:"81 · SEA · 01-jul" },
-    { id:"L32-82", seedA:"1G",       seedB:"3AEHIJ",  date:"82 · SF · 01-jul" },
+    { id:"L32-76", seedA:"1F",       seedB:"2C",      date:"76 · BOS · 29-jun" },
+    { id:"L32-84", seedA:"2K",       seedB:"2L",      date:"84 · LA · 02-jul" },
+    { id:"L32-83", seedA:"1H",       seedB:"2J",      date:"83 · TOR · 02-jul" },
+    { id:"L32-82", seedA:"1D",       seedB:"3B",  date:"82 · SEA · 01-jul" },
+    { id:"L32-81", seedA:"1G",       seedB:"3I",  date:"81 · SF · 01-jul" },
   ],
   R32_R: [
-    { id:"R32-76", seedA:"1C",       seedB:"2F",      date:"76 · MTY · 29-jun" },
-    { id:"R32-78", seedA:"2E",       seedB:"2I",      date:"78 · NYNJ · 30-jun" },
-    { id:"R32-79", seedA:"1A",       seedB:"3CEFHI",  date:"79 · CDMX · 30-jun" },
-    { id:"R32-80", seedA:"1L",       seedB:"3EHIJK",  date:"80 · ATL · 01-jul" },
-    { id:"R32-86", seedA:"1J",       seedB:"2H",      date:"86 · DAL · 03-jul" },
-    { id:"R32-88", seedA:"2D",       seedB:"2G",      date:"88 · KC · 03-jul" },
-    { id:"R32-85", seedA:"1B",       seedB:"3EFGIJ",  date:"85 · VAN · 02-jul" },
-    { id:"R32-87", seedA:"1K",       seedB:"3DEIJL",  date:"87 · MIA · 03-jul" },
+    { id:"R32-74", seedA:"1C",       seedB:"2F",  date:"74 · MTY · 29-jun" },
+    { id:"R32-77", seedA:"2E",       seedB:"2I",  date:"77 · NYNJ · 30-jun" },
+    { id:"R32-79", seedA:"1A",       seedB:"3E",  date:"79 · CDMX · 30-jun" },
+    { id:"R32-80", seedA:"1L",       seedB:"3K",  date:"80 · ATL · 01-jul" },
+    { id:"R32-87", seedA:"1J",       seedB:"2H",  date:"87 · DAL · 03-jul" },
+    { id:"R32-86", seedA:"2D",       seedB:"2G",  date:"86 · KC · 03-jul" },
+    { id:"R32-85", seedA:"1B",       seedB:"3J",  date:"85 · VAN · 02-jul" },
+    { id:"R32-88", seedA:"1K",       seedB:"3L",  date:"88 · MIA · 03-jul" },
   ],
 
   /* ── OCTAVOS DE FINAL ── */
@@ -1173,6 +1173,16 @@ async function fetchBracketScores(ids) {
   return response.json();
 }
 
+async function fetchBracketMatches(ids) {
+  if (!ids.length) return [];
+
+  const response = await fetch(`/bracket_matches?ids=${ids.join(',')}`);
+  if (!response.ok) {
+    throw new Error(`Error cargando partidos: ${response.status}`);
+  }
+  return response.json();
+}
+
 function normalizeBracketGroups(rows) {
   return rows.reduce((groups, row) => {
     const groupId = row.Grupo || row.grupo || 'Sin grupo';
@@ -1260,14 +1270,14 @@ async function calculateBracket() {
   if (button) button.disabled = true;
 
   try {
-    const scoreIds = getBracketMatches().map(getMatchDbId).filter(id => id !== null);
-    const [rows, scoreRows] = await Promise.all([
+    const matchIds = getBracketMatchIds();
+    const [rows, matchRows] = await Promise.all([
       fetchBracketGroups(),
-      fetchBracketScores(scoreIds)
+      fetchBracketMatches(matchIds)
     ]);
     const groupsData = normalizeBracketGroups(rows);
     attachR32Teams(groupsData);
-    attachBracketScores(scoreRows);
+    attachBracketMatches(matchRows);
     renderBracketMatches();
     requestAnimationFrame(drawAll);
   } catch (error) {
@@ -1296,9 +1306,50 @@ function getBracketMatches() {
   ];
 }
 
+function getBracketMatchIds() {
+  return getBracketMatches().map(getMatchDbId).filter(id => id !== null);
+}
+
 function getMatchDbId(match) {
   const matchId = String(match.id || '').match(/-(\d+)$/);
   return matchId ? Number(matchId[1]) : null;
+}
+
+function createTeamFromDb(code, name) {
+  const teamCode = String(code || '').trim().toUpperCase();
+  const teamName = teamCode || name || 'TBD';
+
+  return {
+    code: teamCode,
+    name: teamName,
+    flag: teamCode
+      ? `<img src="/resources/Ipais/${teamCode}.png" alt="${teamName}" width="24" height="16" onerror="this.onerror=null;this.src='https://placehold.co/24x16?text=${teamCode}'"/>`
+      : 'ðŸ³'
+  };
+}
+
+function formatMatchDate(row) {
+  return [row.Id, row.Estadio, row.Fecha, row.Horario]
+    .filter(value => value !== undefined && value !== null && value !== '')
+    .join('  ');
+}
+
+function attachBracketMatches(matchRows) {
+  const rowsById = new Map(
+    matchRows.map(row => [Number(row.Id), row])
+  );
+
+  getBracketMatches().forEach(match => {
+    const dbId = getMatchDbId(match);
+    const row = rowsById.get(dbId);
+    if (!row) return;
+
+    match.teamA = createTeamFromDb(row.ClaveL, row.Local);
+    match.teamB = createTeamFromDb(row.ClaveV, row.Visitante);
+    match.scoreA = row.ML;
+    match.scoreB = row.MV;
+    match.date = formatMatchDate(row);
+  });
 }
 
 function attachBracketScores(scoreRows) {
@@ -1397,8 +1448,22 @@ function setupBracketToggle() {
 
 /* ── INIT ── */
 async function init() {
-  loadBracketGroups();
   setupBracketToggle();
+
+  try {
+    const matchIds = getBracketMatchIds();
+    const [rows, matchRows] = await Promise.all([
+      fetchBracketGroups(),
+      fetchBracketMatches(matchIds)
+    ]);
+    const groupsData = normalizeBracketGroups(rows);
+    renderGroups(groupsData);
+    attachR32Teams(groupsData);
+    attachBracketMatches(matchRows);
+  } catch (error) {
+    console.error(error);
+    loadBracketGroups();
+  }
 
   renderBracketMatches();
 

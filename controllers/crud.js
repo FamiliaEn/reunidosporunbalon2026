@@ -346,10 +346,20 @@ exports.campeon_update = (req, res)=>{
             console.log(error);
         }else{           
  //           console.log(results);
+              console.log('Participante-SC: ',Id_p);      
+        }
+    });
+
+    conexion.query('INSERT INTO Hquiniela SET Id_participante=?, Id_partido=106, ML=0, MV=0',[Id_p], (error, results)=>{
+        if(error){
+            console.log(error);
+        }else{           
+ //           console.log(results);
               console.log('Participante-SC: ',Id_p);
             res.redirect('/quiniela');         
         }
     });
+
 }
 
 
